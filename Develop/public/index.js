@@ -21,7 +21,7 @@ const checkDatabase = () => {
 const saveRecord = transact => {
   const transaction = db.transaction(['transacts'], 'readwrite')
   const store = transaction.objectStore('transacts')
-  store.add(transact)
+  store.add(transaction)
 }
 
 
@@ -35,7 +35,7 @@ request.onsuccess = event => {
   db = event.target.result
 
   if (navigator.onLine) {
-    checkDatabase
+    checkDatabase()
   }
 }
 
@@ -179,7 +179,7 @@ function sendTransaction(isAdding) {
   })
   .catch(err => {
     // fetch failed, so save in indexed db
-    saveRecord(transact);
+    saveRecord(transaction);
     console.error(e)
 
     // clear form
